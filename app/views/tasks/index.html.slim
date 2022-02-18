@@ -3,12 +3,16 @@ h1 タスク一覧
 
 .mb-3
 table.table.table-hover
-  thead.thead-default.table-dark
+  thead.thead-dark
     tr
       th= Task.human_attribute_name(:name)
       th= Task.human_attribute_name(:created_at)
+      th
   tbody 
     - @tasks.each do |task|
       tr 
-        td= task.name 
+        td= link_to task.name, task
         td= task.created_at
+        td
+          = link_to '編集', edit_task_path(task), class: 'btn btn-light mr-3'
+          = link_to '削除', task, method: :delete, data: { confirm: "タスク「#{task.name}」を削除します。よろしいですか？"}, class: 'btn btn-warning'
